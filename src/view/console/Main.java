@@ -2,9 +2,6 @@ package view.console;
 
 import java.util.Scanner;
 
-import exceptions.BadDateFormatException;
-import exceptions.BadLengthException;
-import exceptions.NotNumericException;
 import model.validations.UserDataValidations;
 
 /**
@@ -81,22 +78,17 @@ public class Main {
   }
   public static void testCalculateAgo() {
     System.out.print("Birth date: ");
-    try {
-      int age = UserDataValidations.calculateAge(sc.nextLine());
+    int age = UserDataValidations.calculateAge(sc.nextLine());
+    if(age==-1) {
+      System.out.println("error");
+    } else {
       System.out.println(age);
-    } catch (BadDateFormatException e) {
-      System.out.println(e.getMessage());
     }
   }
   public static void testCheckPostalCode() {
     System.out.print("Postal Code: ");
-    boolean checked;
-    try {
-      checked = UserDataValidations.checkPostalCode(sc.nextLine());
-      System.out.println(checked);
-    } catch (BadLengthException | NotNumericException e) {
-      System.out.println(e.getMessage());
-    }
+    boolean checked = UserDataValidations.checkPostalCode(sc.nextLine());
+    System.out.println(checked);
   }
   public static void testIsNumeric() {
     System.out.print("Number: ");

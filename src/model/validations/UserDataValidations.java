@@ -4,10 +4,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
-import exceptions.BadDateFormatException;
-import exceptions.BadLengthException;
-import exceptions.NotNumericException;
-
 /**
  *
  * @author marcespmor
@@ -52,8 +48,8 @@ public class UserDataValidations {
    * @param birthDate
    * @return years
    */
-  public static int calculateAge(String birthDate) throws BadDateFormatException {
-    if(!checkFormatDate(birthDate)) throw new BadDateFormatException();
+  public static int calculateAge(String birthDate) {
+    if(!checkFormatDate(birthDate)) return -1;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     return Period.between(LocalDate.parse(birthDate, formatter), LocalDate.now()).getYears();
   }
@@ -63,9 +59,9 @@ public class UserDataValidations {
    * @param zip
    * @return true or false
    */
-  public static boolean checkPostalCode(String zip) throws BadLengthException, NotNumericException {
-    if(zip.length()!=5) throw new BadLengthException(); // Bad Length
-    for(String s : zip.split("")) if(!isNumeric(s)) throw new NotNumericException(); // If one character is not numeric, return false
+  public static boolean checkPostalCode(String zip) {
+    if(zip.length()!=5) return false; // Bad Length
+    for(String s : zip.split("")) if(!isNumeric(s)) return false; // If one character is not numeric, return false
     return true;
   }
 

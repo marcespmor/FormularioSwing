@@ -3,8 +3,6 @@ package view.gui;
 import ficheros.ClassFichero;
 import java.io.FileNotFoundException;
 
-import exceptions.BadLengthException;
-import exceptions.NotNumericException;
 import model.validations.UserDataValidations;
 
 /**
@@ -274,13 +272,11 @@ public class JFrameMain extends javax.swing.JFrame {
         
         // Codigo Postal
         String codigoPostal = jTextFieldCodigoPostal.getText();
-        try {
-            boolean checked = UserDataValidations.checkPostalCode(codigoPostal);
-            if(checked) {
-                jLabelErrorCodigoPostal.setText("");
-                jTextFieldCodigoPostal.setEditable(false);
-            }
-        } catch (BadLengthException | NotNumericException e) {
+        boolean checked = UserDataValidations.checkPostalCode(codigoPostal);
+        if(checked) {
+            jLabelErrorCodigoPostal.setText("");
+            jTextFieldCodigoPostal.setEditable(false);
+        }else {
             jLabelErrorCodigoPostal.setText("Error!");
             error = true;
         }
